@@ -1,0 +1,548 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<edmx:Edmx Version="3.0" xmlns:edmx="http://schemas.microsoft.com/ado/2009/11/edmx">
+  <!-- EF Runtime content -->
+  <edmx:Runtime>
+    <!-- SSDL content -->
+    <edmx:StorageModels>
+      <Schema Namespace="Хранилище film_serviceModel" Provider="System.Data.SqlClient" ProviderManifestToken="2012" Alias="Self" xmlns:store="http://schemas.microsoft.com/ado/2007/12/edm/EntityStoreSchemaGenerator" xmlns:customannotation="http://schemas.microsoft.com/ado/2013/11/edm/customannotation" xmlns="http://schemas.microsoft.com/ado/2009/11/edm/ssdl">
+        <EntityType Name="feedback">
+          <Key>
+            <PropertyRef Name="user_login" />
+            <PropertyRef Name="film_id" />
+          </Key>
+          <Property Name="user_login" Type="nvarchar" MaxLength="30" Nullable="false" />
+          <Property Name="film_id" Type="bigint" Nullable="false" />
+          <Property Name="mark" Type="decimal" Precision="3" Scale="1" Nullable="false" />
+          <Property Name="text" Type="nvarchar" MaxLength="500" />
+        </EntityType>
+        <EntityType Name="film">
+          <Key>
+            <PropertyRef Name="id" />
+          </Key>
+          <Property Name="id" Type="bigint" StoreGeneratedPattern="Identity" Nullable="false" />
+          <Property Name="name" Type="nvarchar" MaxLength="50" Nullable="false" />
+          <Property Name="description" Type="nvarchar" MaxLength="500" />
+          <Property Name="duration" Type="smallint" Nullable="false" />
+          <Property Name="tallage" Type="bigint" Nullable="false" />
+        </EntityType>
+        <EntityType Name="film_genre">
+          <Key>
+            <PropertyRef Name="film_id" />
+            <PropertyRef Name="genre_id" />
+          </Key>
+          <Property Name="film_id" Type="bigint" Nullable="false" />
+          <Property Name="genre_id" Type="bigint" Nullable="false" />
+        </EntityType>
+        <EntityType Name="gender">
+          <Key>
+            <PropertyRef Name="id" />
+          </Key>
+          <Property Name="id" Type="smallint" StoreGeneratedPattern="Identity" Nullable="false" />
+          <Property Name="name" Type="nvarchar" MaxLength="30" Nullable="false" />
+        </EntityType>
+        <EntityType Name="genre">
+          <Key>
+            <PropertyRef Name="id" />
+          </Key>
+          <Property Name="id" Type="bigint" StoreGeneratedPattern="Identity" Nullable="false" />
+          <Property Name="name" Type="nvarchar" MaxLength="50" Nullable="false" />
+        </EntityType>
+        <EntityType Name="person">
+          <Key>
+            <PropertyRef Name="id" />
+          </Key>
+          <Property Name="id" Type="bigint" StoreGeneratedPattern="Identity" Nullable="false" />
+          <Property Name="first_name" Type="nvarchar" MaxLength="50" Nullable="false" />
+          <Property Name="middle_name" Type="nvarchar" MaxLength="50" Nullable="false" />
+          <Property Name="last_name" Type="nvarchar" MaxLength="50" Nullable="false" />
+          <Property Name="age" Type="tinyint" Nullable="false" />
+          <Property Name="gender_id" Type="smallint" Nullable="false" />
+          <Property Name="height" Type="tinyint" />
+        </EntityType>
+        <EntityType Name="person_film">
+          <Key>
+            <PropertyRef Name="id" />
+          </Key>
+          <Property Name="id" Type="bigint" StoreGeneratedPattern="Identity" Nullable="false" />
+          <Property Name="film_id" Type="bigint" Nullable="false" />
+          <Property Name="person_id" Type="bigint" Nullable="false" />
+          <Property Name="post_id" Type="int" Nullable="false" />
+        </EntityType>
+        <EntityType Name="post">
+          <Key>
+            <PropertyRef Name="id" />
+          </Key>
+          <Property Name="id" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+          <Property Name="name" Type="nvarchar" MaxLength="60" Nullable="false" />
+        </EntityType>
+        <EntityType Name="user">
+          <Key>
+            <PropertyRef Name="login" />
+          </Key>
+          <Property Name="login" Type="nvarchar" MaxLength="30" Nullable="false" />
+          <Property Name="password" Type="nvarchar" MaxLength="30" Nullable="false" />
+          <Property Name="nickname" Type="nvarchar" MaxLength="30" Nullable="false" />
+          <Property Name="phone" Type="nvarchar" MaxLength="20" Nullable="false" />
+          <Property Name="mail" Type="nvarchar" MaxLength="50" />
+        </EntityType>
+        <Association Name="FK__feedback__film_i__02FC7413">
+          <End Role="film" Type="Self.film" Multiplicity="1" />
+          <End Role="feedback" Type="Self.feedback" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="film">
+              <PropertyRef Name="id" />
+            </Principal>
+            <Dependent Role="feedback">
+              <PropertyRef Name="film_id" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK__feedback__user_l__02084FDA">
+          <End Role="user" Type="Self.user" Multiplicity="1" />
+          <End Role="feedback" Type="Self.feedback" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="user">
+              <PropertyRef Name="login" />
+            </Principal>
+            <Dependent Role="feedback">
+              <PropertyRef Name="user_login" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK__film_genr__film___70DDC3D8">
+          <End Role="film" Type="Self.film" Multiplicity="1" />
+          <End Role="film_genre" Type="Self.film_genre" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="film">
+              <PropertyRef Name="id" />
+            </Principal>
+            <Dependent Role="film_genre">
+              <PropertyRef Name="film_id" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK__film_genr__genre__71D1E811">
+          <End Role="genre" Type="Self.genre" Multiplicity="1" />
+          <End Role="film_genre" Type="Self.film_genre" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="genre">
+              <PropertyRef Name="id" />
+            </Principal>
+            <Dependent Role="film_genre">
+              <PropertyRef Name="genre_id" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK__person__gender_i__76969D2E">
+          <End Role="gender" Type="Self.gender" Multiplicity="1" />
+          <End Role="person" Type="Self.person" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="gender">
+              <PropertyRef Name="id" />
+            </Principal>
+            <Dependent Role="person">
+              <PropertyRef Name="gender_id" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK__person_fi__film___7B5B524B">
+          <End Role="film" Type="Self.film" Multiplicity="1" />
+          <End Role="person_film" Type="Self.person_film" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="film">
+              <PropertyRef Name="id" />
+            </Principal>
+            <Dependent Role="person_film">
+              <PropertyRef Name="film_id" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK__person_fi__perso__7C4F7684">
+          <End Role="person" Type="Self.person" Multiplicity="1" />
+          <End Role="person_film" Type="Self.person_film" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="person">
+              <PropertyRef Name="id" />
+            </Principal>
+            <Dependent Role="person_film">
+              <PropertyRef Name="person_id" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK__person_fi__post___7D439ABD">
+          <End Role="post" Type="Self.post" Multiplicity="1" />
+          <End Role="person_film" Type="Self.person_film" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="post">
+              <PropertyRef Name="id" />
+            </Principal>
+            <Dependent Role="person_film">
+              <PropertyRef Name="post_id" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <EntityContainer Name="Хранилище film_serviceModelContainer">
+          <EntitySet Name="feedback" EntityType="Self.feedback" Schema="dbo" store:Type="Tables" />
+          <EntitySet Name="film" EntityType="Self.film" Schema="dbo" store:Type="Tables" />
+          <EntitySet Name="film_genre" EntityType="Self.film_genre" Schema="dbo" store:Type="Tables" />
+          <EntitySet Name="gender" EntityType="Self.gender" Schema="dbo" store:Type="Tables" />
+          <EntitySet Name="genre" EntityType="Self.genre" Schema="dbo" store:Type="Tables" />
+          <EntitySet Name="person" EntityType="Self.person" Schema="dbo" store:Type="Tables" />
+          <EntitySet Name="person_film" EntityType="Self.person_film" Schema="dbo" store:Type="Tables" />
+          <EntitySet Name="post" EntityType="Self.post" Schema="dbo" store:Type="Tables" />
+          <EntitySet Name="user" EntityType="Self.user" Schema="dbo" store:Type="Tables" />
+          <AssociationSet Name="FK__feedback__film_i__02FC7413" Association="Self.FK__feedback__film_i__02FC7413">
+            <End Role="film" EntitySet="film" />
+            <End Role="feedback" EntitySet="feedback" />
+          </AssociationSet>
+          <AssociationSet Name="FK__feedback__user_l__02084FDA" Association="Self.FK__feedback__user_l__02084FDA">
+            <End Role="user" EntitySet="user" />
+            <End Role="feedback" EntitySet="feedback" />
+          </AssociationSet>
+          <AssociationSet Name="FK__film_genr__film___70DDC3D8" Association="Self.FK__film_genr__film___70DDC3D8">
+            <End Role="film" EntitySet="film" />
+            <End Role="film_genre" EntitySet="film_genre" />
+          </AssociationSet>
+          <AssociationSet Name="FK__film_genr__genre__71D1E811" Association="Self.FK__film_genr__genre__71D1E811">
+            <End Role="genre" EntitySet="genre" />
+            <End Role="film_genre" EntitySet="film_genre" />
+          </AssociationSet>
+          <AssociationSet Name="FK__person__gender_i__76969D2E" Association="Self.FK__person__gender_i__76969D2E">
+            <End Role="gender" EntitySet="gender" />
+            <End Role="person" EntitySet="person" />
+          </AssociationSet>
+          <AssociationSet Name="FK__person_fi__film___7B5B524B" Association="Self.FK__person_fi__film___7B5B524B">
+            <End Role="film" EntitySet="film" />
+            <End Role="person_film" EntitySet="person_film" />
+          </AssociationSet>
+          <AssociationSet Name="FK__person_fi__perso__7C4F7684" Association="Self.FK__person_fi__perso__7C4F7684">
+            <End Role="person" EntitySet="person" />
+            <End Role="person_film" EntitySet="person_film" />
+          </AssociationSet>
+          <AssociationSet Name="FK__person_fi__post___7D439ABD" Association="Self.FK__person_fi__post___7D439ABD">
+            <End Role="post" EntitySet="post" />
+            <End Role="person_film" EntitySet="person_film" />
+          </AssociationSet>
+        </EntityContainer>
+      </Schema>
+    </edmx:StorageModels>
+    <!-- CSDL content -->
+    <edmx:ConceptualModels>
+      <Schema Namespace="film_serviceModel" Alias="Self" annotation:UseStrongSpatialTypes="false" xmlns:annotation="http://schemas.microsoft.com/ado/2009/02/edm/annotation" xmlns:customannotation="http://schemas.microsoft.com/ado/2013/11/edm/customannotation" xmlns="http://schemas.microsoft.com/ado/2009/11/edm">
+        <EntityType Name="feedback">
+          <Key>
+            <PropertyRef Name="user_login" />
+            <PropertyRef Name="film_id" />
+          </Key>
+          <Property Name="user_login" Type="String" MaxLength="30" FixedLength="false" Unicode="true" Nullable="false" />
+          <Property Name="film_id" Type="Int64" Nullable="false" />
+          <Property Name="mark" Type="Decimal" Precision="3" Scale="1" Nullable="false" />
+          <Property Name="text" Type="String" MaxLength="500" FixedLength="false" Unicode="true" />
+          <NavigationProperty Name="film" Relationship="Self.FK__feedback__film_i__02FC7413" FromRole="feedback" ToRole="film" />
+          <NavigationProperty Name="user" Relationship="Self.FK__feedback__user_l__02084FDA" FromRole="feedback" ToRole="user" />
+        </EntityType>
+        <EntityType Name="film">
+          <Key>
+            <PropertyRef Name="id" />
+          </Key>
+          <Property Name="id" Type="Int64" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <Property Name="name" Type="String" MaxLength="50" FixedLength="false" Unicode="true" Nullable="false" />
+          <Property Name="description" Type="String" MaxLength="500" FixedLength="false" Unicode="true" />
+          <Property Name="duration" Type="Int16" Nullable="false" />
+          <Property Name="tallage" Type="Int64" Nullable="false" />
+          <NavigationProperty Name="feedback" Relationship="Self.FK__feedback__film_i__02FC7413" FromRole="film" ToRole="feedback" />
+          <NavigationProperty Name="person_film" Relationship="Self.FK__person_fi__film___7B5B524B" FromRole="film" ToRole="person_film" />
+          <NavigationProperty Name="genre" Relationship="Self.film_genre" FromRole="film" ToRole="genre" />
+        </EntityType>
+        <EntityType Name="gender">
+          <Key>
+            <PropertyRef Name="id" />
+          </Key>
+          <Property Name="id" Type="Int16" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <Property Name="name" Type="String" MaxLength="30" FixedLength="false" Unicode="true" Nullable="false" />
+          <NavigationProperty Name="person" Relationship="Self.FK__person__gender_i__76969D2E" FromRole="gender" ToRole="person" />
+        </EntityType>
+        <EntityType Name="genre">
+          <Key>
+            <PropertyRef Name="id" />
+          </Key>
+          <Property Name="id" Type="Int64" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <Property Name="name" Type="String" MaxLength="50" FixedLength="false" Unicode="true" Nullable="false" />
+          <NavigationProperty Name="film" Relationship="Self.film_genre" FromRole="genre" ToRole="film" />
+        </EntityType>
+        <EntityType Name="person">
+          <Key>
+            <PropertyRef Name="id" />
+          </Key>
+          <Property Name="id" Type="Int64" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <Property Name="first_name" Type="String" MaxLength="50" FixedLength="false" Unicode="true" Nullable="false" />
+          <Property Name="middle_name" Type="String" MaxLength="50" FixedLength="false" Unicode="true" Nullable="false" />
+          <Property Name="last_name" Type="String" MaxLength="50" FixedLength="false" Unicode="true" Nullable="false" />
+          <Property Name="age" Type="Byte" Nullable="false" />
+          <Property Name="gender_id" Type="Int16" Nullable="false" />
+          <Property Name="height" Type="Byte" />
+          <NavigationProperty Name="gender" Relationship="Self.FK__person__gender_i__76969D2E" FromRole="person" ToRole="gender" />
+          <NavigationProperty Name="person_film" Relationship="Self.FK__person_fi__perso__7C4F7684" FromRole="person" ToRole="person_film" />
+        </EntityType>
+        <EntityType Name="person_film">
+          <Key>
+            <PropertyRef Name="id" />
+          </Key>
+          <Property Name="id" Type="Int64" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <Property Name="film_id" Type="Int64" Nullable="false" />
+          <Property Name="person_id" Type="Int64" Nullable="false" />
+          <Property Name="post_id" Type="Int32" Nullable="false" />
+          <NavigationProperty Name="film" Relationship="Self.FK__person_fi__film___7B5B524B" FromRole="person_film" ToRole="film" />
+          <NavigationProperty Name="person" Relationship="Self.FK__person_fi__perso__7C4F7684" FromRole="person_film" ToRole="person" />
+          <NavigationProperty Name="post" Relationship="Self.FK__person_fi__post___7D439ABD" FromRole="person_film" ToRole="post" />
+        </EntityType>
+        <EntityType Name="post">
+          <Key>
+            <PropertyRef Name="id" />
+          </Key>
+          <Property Name="id" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <Property Name="name" Type="String" MaxLength="60" FixedLength="false" Unicode="true" Nullable="false" />
+          <NavigationProperty Name="person_film" Relationship="Self.FK__person_fi__post___7D439ABD" FromRole="post" ToRole="person_film" />
+        </EntityType>
+        <EntityType Name="user">
+          <Key>
+            <PropertyRef Name="login" />
+          </Key>
+          <Property Name="login" Type="String" MaxLength="30" FixedLength="false" Unicode="true" Nullable="false" />
+          <Property Name="password" Type="String" MaxLength="30" FixedLength="false" Unicode="true" Nullable="false" />
+          <Property Name="nickname" Type="String" MaxLength="30" FixedLength="false" Unicode="true" Nullable="false" />
+          <Property Name="phone" Type="String" MaxLength="20" FixedLength="false" Unicode="true" Nullable="false" />
+          <Property Name="mail" Type="String" MaxLength="50" FixedLength="false" Unicode="true" />
+          <NavigationProperty Name="feedback" Relationship="Self.FK__feedback__user_l__02084FDA" FromRole="user" ToRole="feedback" />
+        </EntityType>
+        <Association Name="FK__feedback__film_i__02FC7413">
+          <End Role="film" Type="Self.film" Multiplicity="1" />
+          <End Role="feedback" Type="Self.feedback" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="film">
+              <PropertyRef Name="id" />
+            </Principal>
+            <Dependent Role="feedback">
+              <PropertyRef Name="film_id" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK__feedback__user_l__02084FDA">
+          <End Role="user" Type="Self.user" Multiplicity="1" />
+          <End Role="feedback" Type="Self.feedback" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="user">
+              <PropertyRef Name="login" />
+            </Principal>
+            <Dependent Role="feedback">
+              <PropertyRef Name="user_login" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK__person_fi__film___7B5B524B">
+          <End Role="film" Type="Self.film" Multiplicity="1" />
+          <End Role="person_film" Type="Self.person_film" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="film">
+              <PropertyRef Name="id" />
+            </Principal>
+            <Dependent Role="person_film">
+              <PropertyRef Name="film_id" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK__person__gender_i__76969D2E">
+          <End Role="gender" Type="Self.gender" Multiplicity="1" />
+          <End Role="person" Type="Self.person" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="gender">
+              <PropertyRef Name="id" />
+            </Principal>
+            <Dependent Role="person">
+              <PropertyRef Name="gender_id" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK__person_fi__perso__7C4F7684">
+          <End Role="person" Type="Self.person" Multiplicity="1" />
+          <End Role="person_film" Type="Self.person_film" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="person">
+              <PropertyRef Name="id" />
+            </Principal>
+            <Dependent Role="person_film">
+              <PropertyRef Name="person_id" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK__person_fi__post___7D439ABD">
+          <End Role="post" Type="Self.post" Multiplicity="1" />
+          <End Role="person_film" Type="Self.person_film" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="post">
+              <PropertyRef Name="id" />
+            </Principal>
+            <Dependent Role="person_film">
+              <PropertyRef Name="post_id" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="film_genre">
+          <End Role="film" Type="Self.film" Multiplicity="*" />
+          <End Role="genre" Type="Self.genre" Multiplicity="*" />
+        </Association>
+        <EntityContainer Name="film_serviceEntities" annotation:LazyLoadingEnabled="true">
+          <EntitySet Name="feedback" EntityType="Self.feedback" />
+          <EntitySet Name="film" EntityType="Self.film" />
+          <EntitySet Name="gender" EntityType="Self.gender" />
+          <EntitySet Name="genre" EntityType="Self.genre" />
+          <EntitySet Name="person" EntityType="Self.person" />
+          <EntitySet Name="person_film" EntityType="Self.person_film" />
+          <EntitySet Name="post" EntityType="Self.post" />
+          <EntitySet Name="user" EntityType="Self.user" />
+          <AssociationSet Name="FK__feedback__film_i__02FC7413" Association="Self.FK__feedback__film_i__02FC7413">
+            <End Role="film" EntitySet="film" />
+            <End Role="feedback" EntitySet="feedback" />
+          </AssociationSet>
+          <AssociationSet Name="FK__feedback__user_l__02084FDA" Association="Self.FK__feedback__user_l__02084FDA">
+            <End Role="user" EntitySet="user" />
+            <End Role="feedback" EntitySet="feedback" />
+          </AssociationSet>
+          <AssociationSet Name="FK__person_fi__film___7B5B524B" Association="Self.FK__person_fi__film___7B5B524B">
+            <End Role="film" EntitySet="film" />
+            <End Role="person_film" EntitySet="person_film" />
+          </AssociationSet>
+          <AssociationSet Name="FK__person__gender_i__76969D2E" Association="Self.FK__person__gender_i__76969D2E">
+            <End Role="gender" EntitySet="gender" />
+            <End Role="person" EntitySet="person" />
+          </AssociationSet>
+          <AssociationSet Name="FK__person_fi__perso__7C4F7684" Association="Self.FK__person_fi__perso__7C4F7684">
+            <End Role="person" EntitySet="person" />
+            <End Role="person_film" EntitySet="person_film" />
+          </AssociationSet>
+          <AssociationSet Name="FK__person_fi__post___7D439ABD" Association="Self.FK__person_fi__post___7D439ABD">
+            <End Role="post" EntitySet="post" />
+            <End Role="person_film" EntitySet="person_film" />
+          </AssociationSet>
+          <AssociationSet Name="film_genre" Association="Self.film_genre">
+            <End Role="film" EntitySet="film" />
+            <End Role="genre" EntitySet="genre" />
+          </AssociationSet>
+        </EntityContainer>
+      </Schema>
+    </edmx:ConceptualModels>
+    <!-- C-S mapping content -->
+    <edmx:Mappings>
+      <Mapping Space="C-S" xmlns="http://schemas.microsoft.com/ado/2009/11/mapping/cs">
+        <EntityContainerMapping StorageEntityContainer="Хранилище film_serviceModelContainer" CdmEntityContainer="film_serviceEntities">
+          <EntitySetMapping Name="feedback">
+            <EntityTypeMapping TypeName="film_serviceModel.feedback">
+              <MappingFragment StoreEntitySet="feedback">
+                <ScalarProperty Name="user_login" ColumnName="user_login" />
+                <ScalarProperty Name="film_id" ColumnName="film_id" />
+                <ScalarProperty Name="mark" ColumnName="mark" />
+                <ScalarProperty Name="text" ColumnName="text" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="film">
+            <EntityTypeMapping TypeName="film_serviceModel.film">
+              <MappingFragment StoreEntitySet="film">
+                <ScalarProperty Name="id" ColumnName="id" />
+                <ScalarProperty Name="name" ColumnName="name" />
+                <ScalarProperty Name="description" ColumnName="description" />
+                <ScalarProperty Name="duration" ColumnName="duration" />
+                <ScalarProperty Name="tallage" ColumnName="tallage" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="gender">
+            <EntityTypeMapping TypeName="film_serviceModel.gender">
+              <MappingFragment StoreEntitySet="gender">
+                <ScalarProperty Name="id" ColumnName="id" />
+                <ScalarProperty Name="name" ColumnName="name" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="genre">
+            <EntityTypeMapping TypeName="film_serviceModel.genre">
+              <MappingFragment StoreEntitySet="genre">
+                <ScalarProperty Name="id" ColumnName="id" />
+                <ScalarProperty Name="name" ColumnName="name" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="person">
+            <EntityTypeMapping TypeName="film_serviceModel.person">
+              <MappingFragment StoreEntitySet="person">
+                <ScalarProperty Name="id" ColumnName="id" />
+                <ScalarProperty Name="first_name" ColumnName="first_name" />
+                <ScalarProperty Name="middle_name" ColumnName="middle_name" />
+                <ScalarProperty Name="last_name" ColumnName="last_name" />
+                <ScalarProperty Name="age" ColumnName="age" />
+                <ScalarProperty Name="gender_id" ColumnName="gender_id" />
+                <ScalarProperty Name="height" ColumnName="height" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="person_film">
+            <EntityTypeMapping TypeName="film_serviceModel.person_film">
+              <MappingFragment StoreEntitySet="person_film">
+                <ScalarProperty Name="id" ColumnName="id" />
+                <ScalarProperty Name="film_id" ColumnName="film_id" />
+                <ScalarProperty Name="person_id" ColumnName="person_id" />
+                <ScalarProperty Name="post_id" ColumnName="post_id" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="post">
+            <EntityTypeMapping TypeName="film_serviceModel.post">
+              <MappingFragment StoreEntitySet="post">
+                <ScalarProperty Name="id" ColumnName="id" />
+                <ScalarProperty Name="name" ColumnName="name" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="user">
+            <EntityTypeMapping TypeName="film_serviceModel.user">
+              <MappingFragment StoreEntitySet="user">
+                <ScalarProperty Name="login" ColumnName="login" />
+                <ScalarProperty Name="password" ColumnName="password" />
+                <ScalarProperty Name="nickname" ColumnName="nickname" />
+                <ScalarProperty Name="phone" ColumnName="phone" />
+                <ScalarProperty Name="mail" ColumnName="mail" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <AssociationSetMapping Name="film_genre" TypeName="film_serviceModel.film_genre" StoreEntitySet="film_genre">
+            <EndProperty Name="film">
+              <ScalarProperty Name="id" ColumnName="film_id" />
+            </EndProperty>
+            <EndProperty Name="genre">
+              <ScalarProperty Name="id" ColumnName="genre_id" />
+            </EndProperty>
+          </AssociationSetMapping>
+        </EntityContainerMapping>
+      </Mapping>
+    </edmx:Mappings>
+  </edmx:Runtime>
+  <!-- EF Designer content (DO NOT EDIT MANUALLY BELOW HERE) -->
+  <Designer xmlns="http://schemas.microsoft.com/ado/2009/11/edmx">
+    <Connection>
+      <DesignerInfoPropertySet>
+        <DesignerProperty Name="MetadataArtifactProcessing" Value="EmbedInOutputAssembly" />
+      </DesignerInfoPropertySet>
+    </Connection>
+    <Options>
+      <DesignerInfoPropertySet>
+        <DesignerProperty Name="ValidateOnBuild" Value="true" />
+        <DesignerProperty Name="EnablePluralization" Value="false" />
+        <DesignerProperty Name="IncludeForeignKeysInModel" Value="true" />
+        <DesignerProperty Name="UseLegacyProvider" Value="false" />
+        <DesignerProperty Name="CodeGenerationStrategy" Value="Нет" />
+      </DesignerInfoPropertySet>
+    </Options>
+    <!-- Diagram content (shape and connector positions) -->
+    <Diagrams></Diagrams>
+  </Designer>
+</edmx:Edmx>

@@ -1,0 +1,92 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<Mapping Space="C-S" xmlns="http://schemas.microsoft.com/ado/2009/11/mapping/cs">
+  <EntityContainerMapping StorageEntityContainer="Хранилище film_serviceModelContainer" CdmEntityContainer="film_serviceEntities">
+    <EntitySetMapping Name="feedback">
+      <EntityTypeMapping TypeName="film_serviceModel.feedback">
+        <MappingFragment StoreEntitySet="feedback">
+          <ScalarProperty Name="user_login" ColumnName="user_login" />
+          <ScalarProperty Name="film_id" ColumnName="film_id" />
+          <ScalarProperty Name="mark" ColumnName="mark" />
+          <ScalarProperty Name="text" ColumnName="text" />
+        </MappingFragment>
+      </EntityTypeMapping>
+    </EntitySetMapping>
+    <EntitySetMapping Name="film">
+      <EntityTypeMapping TypeName="film_serviceModel.film">
+        <MappingFragment StoreEntitySet="film">
+          <ScalarProperty Name="id" ColumnName="id" />
+          <ScalarProperty Name="name" ColumnName="name" />
+          <ScalarProperty Name="description" ColumnName="description" />
+          <ScalarProperty Name="duration" ColumnName="duration" />
+          <ScalarProperty Name="tallage" ColumnName="tallage" />
+        </MappingFragment>
+      </EntityTypeMapping>
+    </EntitySetMapping>
+    <EntitySetMapping Name="gender">
+      <EntityTypeMapping TypeName="film_serviceModel.gender">
+        <MappingFragment StoreEntitySet="gender">
+          <ScalarProperty Name="id" ColumnName="id" />
+          <ScalarProperty Name="name" ColumnName="name" />
+        </MappingFragment>
+      </EntityTypeMapping>
+    </EntitySetMapping>
+    <EntitySetMapping Name="genre">
+      <EntityTypeMapping TypeName="film_serviceModel.genre">
+        <MappingFragment StoreEntitySet="genre">
+          <ScalarProperty Name="id" ColumnName="id" />
+          <ScalarProperty Name="name" ColumnName="name" />
+        </MappingFragment>
+      </EntityTypeMapping>
+    </EntitySetMapping>
+    <EntitySetMapping Name="person">
+      <EntityTypeMapping TypeName="film_serviceModel.person">
+        <MappingFragment StoreEntitySet="person">
+          <ScalarProperty Name="id" ColumnName="id" />
+          <ScalarProperty Name="first_name" ColumnName="first_name" />
+          <ScalarProperty Name="middle_name" ColumnName="middle_name" />
+          <ScalarProperty Name="last_name" ColumnName="last_name" />
+          <ScalarProperty Name="age" ColumnName="age" />
+          <ScalarProperty Name="gender_id" ColumnName="gender_id" />
+          <ScalarProperty Name="height" ColumnName="height" />
+        </MappingFragment>
+      </EntityTypeMapping>
+    </EntitySetMapping>
+    <EntitySetMapping Name="person_film">
+      <EntityTypeMapping TypeName="film_serviceModel.person_film">
+        <MappingFragment StoreEntitySet="person_film">
+          <ScalarProperty Name="id" ColumnName="id" />
+          <ScalarProperty Name="film_id" ColumnName="film_id" />
+          <ScalarProperty Name="person_id" ColumnName="person_id" />
+          <ScalarProperty Name="post_id" ColumnName="post_id" />
+        </MappingFragment>
+      </EntityTypeMapping>
+    </EntitySetMapping>
+    <EntitySetMapping Name="post">
+      <EntityTypeMapping TypeName="film_serviceModel.post">
+        <MappingFragment StoreEntitySet="post">
+          <ScalarProperty Name="id" ColumnName="id" />
+          <ScalarProperty Name="name" ColumnName="name" />
+        </MappingFragment>
+      </EntityTypeMapping>
+    </EntitySetMapping>
+    <EntitySetMapping Name="user">
+      <EntityTypeMapping TypeName="film_serviceModel.user">
+        <MappingFragment StoreEntitySet="user">
+          <ScalarProperty Name="login" ColumnName="login" />
+          <ScalarProperty Name="password" ColumnName="password" />
+          <ScalarProperty Name="nickname" ColumnName="nickname" />
+          <ScalarProperty Name="phone" ColumnName="phone" />
+          <ScalarProperty Name="mail" ColumnName="mail" />
+        </MappingFragment>
+      </EntityTypeMapping>
+    </EntitySetMapping>
+    <AssociationSetMapping Name="film_genre" TypeName="film_serviceModel.film_genre" StoreEntitySet="film_genre">
+      <EndProperty Name="film">
+        <ScalarProperty Name="id" ColumnName="film_id" />
+      </EndProperty>
+      <EndProperty Name="genre">
+        <ScalarProperty Name="id" ColumnName="genre_id" />
+      </EndProperty>
+    </AssociationSetMapping>
+  </EntityContainerMapping>
+</Mapping>
